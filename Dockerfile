@@ -1,6 +1,6 @@
 FROM cargo30.dev.caicloud.xyz/library/alpine:3.13 as BUILD
 
-RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
   apk add --no-cache build-base ncurses-dev
 
 WORKDIR /sudoku
@@ -13,7 +13,7 @@ CMD ["/bin/sh"]
 
 FROM cargo30.dev.caicloud.xyz/library/alpine:3.13
 
-RUN sed -i 's/https:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
   apk add --no-cache ncurses
 
 COPY --from=BUILD /tmp/sudoku.test /usr/local/bin
