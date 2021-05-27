@@ -1,7 +1,4 @@
-FROM cargo30.dev.caicloud.xyz/library/alpine:3.13 as BUILD
-
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-  apk add --no-cache build-base ncurses-dev
+FROM cargo30.dev.caicloud.xyz/library/alpine:3.13-ncurses as BUILD
 
 WORKDIR /sudoku
 
@@ -11,10 +8,7 @@ RUN make && cp sudoku.test puzzles.txt /tmp
 
 CMD ["/bin/sh"]
 
-FROM cargo30.dev.caicloud.xyz/library/alpine:3.13
-
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-  apk add --no-cache ncurses
+FROM cargo30.dev.caicloud.xyz/library/alpine:3.13-ncurses
 
 COPY --from=BUILD /tmp/sudoku.test /usr/local/bin
 
